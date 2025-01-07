@@ -1,10 +1,10 @@
 // 1. 구구단 출력
-// for(let i = 2; i <= 9; i++){
-//   console.log(`=== ${i}단 ===`)
-//   for(let j = 1; j <= 9; j++){
-//     console.log(`${i} * ${j} = ${i*j}`);
-//   }
-// }
+for(let i = 2; i <= 9; i++){
+  console.log(`=== ${i}단 ===`)
+  for(let j = 1; j <= 9; j++){
+    console.log(`${i} * ${j} = ${i*j}`);
+  }
+}
 // 2. 별찍기
 /**
  *    #
@@ -31,4 +31,17 @@ for(let i=1 ; i<= mid; i++){
   }
   starPrint = star.join('');
   console.log(starPrint);
+}
+
+
+console.log(star);
+// for ~ in
+let idol = ['장원영', '안유진', '이서'];
+for(let key in idol){
+  console.log(`${key} : ${idol[key]}`);
+}
+
+// for ~ of
+for(let value of idol){
+  console.log(value);
 }
