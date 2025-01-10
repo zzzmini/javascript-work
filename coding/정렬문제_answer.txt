@@ -1,0 +1,241 @@
+문제 1. 좌표정렬하기
+
+- 문제
+2차원 평면 위의 점 N개가 주어진다. 좌표를 x좌표가 증가하는 순으로, 
+x좌표가 같으면 y좌표가 증가하는 순서로 정렬한 다음 
+출력하는 프로그램을 작성하시오.
+
+- 입력
+첫째 줄에 점의 개수 N (1 ≤ N ≤ 100,000)이 주어진다. 
+둘째 줄부터 N개의 줄에는 i번점의 위치 xi와 yi가 주어진다. 
+(-100,000 ≤ xi, yi ≤ 100,000) 좌표는 항상 정수이고, 
+위치가 같은 두 점은 없다.
+
+- 출력
+첫째 줄부터 N개의 줄에 점을 정렬한 결과를 출력한다.
+
+- 예제 입력 1 
+5
+3 4
+1 1
+1 -1
+2 2
+3 3
+
+- 예제 출력 1 
+1 -1
+1 1
+2 2
+3 3
+3 4
+
+------------------------------------------------------------------
+let fs = require('fs');
+let input = fs.readFileSync('sort_test.txt').toString().split('\n');
+
+let n = Number(input[0]);
+let data = [];
+
+for(let i=1; i<=n; i++){
+    let [x, y] = input[i].split(' ').map(Number);
+    data.push([x, y]);
+}
+console.log('소스 : ');
+console.log(data);
+
+data.sort(compare);
+function compare(a, b){
+    if(a[0] != b[0]){
+        return a[0] - b[0]; // x 좌표 기준 오름차순
+    } else {
+        return a[1] - b[1]; // y 좌표 기준 오름차순
+    }
+}
+
+console.log('결과 : ');
+console.log(data);
+console.log('출력 : ');
+
+let result = '';
+for(let item of data){
+    result += item[0] + ' ' + item[1] + '\n';
+}
+console.log(result);
+------------------------------------------------------------------
+
+문제 2. 단어정렬
+
+- 문제
+알파벳 소문자로 이루어진 N개의 단어가 들어오면 아래와 같은 조건에 따라 
+정렬하는 프로그램을 작성하시오.
+
+길이가 짧은 것부터
+길이가 같으면 사전 순으로
+단, 중복된 단어는 하나만 남기고 제거해야 한다.
+
+- 입력
+첫째 줄에 단어의 개수 N이 주어진다. (1 ≤ N ≤ 20,000) 
+둘째 줄부터 N개의 줄에 걸쳐 알파벳 소문자로 이루어진 단어가 한 줄에 하나씩 주어진다. 
+주어지는 문자열의 길이는 50을 넘지 않는다.
+
+- 출력
+조건에 따라 정렬하여 단어들을 출력한다.
+
+- 예제 입력 1 
+13
+but
+i
+wont
+hesitate
+no
+more
+no
+more
+it
+cannot
+wait
+im
+yours
+
+- 예제 출력 1 
+i
+im
+it
+no
+but
+more
+wait
+wont
+yours
+cannot
+hesitate
+
+------------------------------------------------------------------
+let fs = require('fs');
+let input = fs.readFileSync('sort_word.txt').toString().split('\n');
+
+let n = parseInt(input[0]);
+let data = [];
+for(let i = 1; i <= n; i++){
+    data.push(input[i]);
+}
+console.log(data.length);
+// 중복항목 제거위해 set으로 변환 후 배열로 되돌리기
+data = [... new Set(data)];
+// 정렬
+data.sort((a,b)=>{
+    // 길이가 같으면 짧은 것 부터
+    if(a.length != b.length) return a.length - b.length;
+    else {
+        // 길이가 같으면 사전 순으로
+        if(a < b) return -1;
+        if(a > b) return 1;
+        else return 0;
+    }
+})
+
+// 하나씩 출력
+for(let x of data){
+    console.log(x);
+}
+------------------------------------------------------------------
+
+문제 3. 값의 상대적 순위구하기
+
+- 문제
+여러개의 값을 입력받아 작은 값부터 큰 값의 상대 순위를 구하시오.
+
+- 입력
+첫째 줄에 N이 주어진다.
+둘째 줄에는 공백 한 칸으로 구분된 X1, X2, ..., XN이 주어진다.
+
+- 출력
+첫째 줄에 X'1, X'2, ..., X'N을 공백 한 칸으로 구분해서 출력한다.
+
+- 예제 입력 1 
+5
+2 4 -10 4 -9
+
+- 예제 출력 1 
+2 3 0 3 1
+
+- 예제 입력 2
+6
+1000 999 1000 999 1000 999
+
+- 예제 출력 2
+1 0 1 0 1 0
+
+------------------------------------------------------------------
+let fs = require('fs');
+let input = fs.readFileSync('sort_map.txt').toString().split('\n');
+
+let n = parseInt(input[0]);
+let data = input[1].split(' ').map(Number);
+// set으로 중복 제거
+let setData = [... new Set(data)];
+// 오름차순 정렬 수행
+setData.sort((a, b)=> a -b);
+
+// 맵으로 저장
+let myMap = new Map();
+for(let i = 0; i < setData.length; i++){
+    myMap.set(setData[i], i);
+}
+
+// data 를 출력하되 map에 매핑되어 있는 value 값 출력
+let result = '';
+for(x of data){
+    result += myMap.get(x) + ' ';
+}
+console.log(result);
+------------------------------------------------------------------    
+
+문제 4. 숫자의 정렬
+
+- 문제
+배열을 정렬하는 것은 쉽다. 수가 주어지면, 
+그 수의 각 자리수를 내림차순으로 정렬해보자.
+
+- 입력
+첫째 줄에 정렬하려고 하는 수 N이 주어진다. 
+N은 1,000,000,000보다 작거나 같은 자연수이다.
+
+- 출력
+첫째 줄에 자리수를 내림차순으로 정렬한 수를 출력한다.
+
+- 예제 입력 1 
+2143
+- 예제 출력 1 
+4321
+
+- 예제 입력 2 
+999998999
+- 예제 출력 2 
+999999998
+
+- 예제 입력 3 
+61423
+- 예제 출력 3 
+64321
+
+------------------------------------------------------------------
+let fs = require('fs');
+let input = fs.readFileSync('sort_num.txt').toString().split('\n');
+
+let n = input[0];
+let cnt = Array.from({length:10}, () => 0);
+for(let x of n){
+    cnt[Number(x)] ++;
+}
+console.log(cnt);
+let result = '';
+// 결과 출력 - cnt 배열에 든 수만큼 값 인쇄
+// 단, 뒤에서 부터
+for(let i = 9; i >= 0; i--){
+    for(let j = 0; j < cnt[i]; j++){
+        result += i + '';
+    }
+}
+console.log(result);
+------------------------------------------------------------------    

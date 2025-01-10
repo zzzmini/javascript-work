@@ -1,0 +1,163 @@
+문제1_A+B
+
+let fs = require("fs");
+let input = fs.readFileSync('A+B.txt').toString().split("\n");
+let data = input[0].split(' ');
+let result = 0;
+for(let i=0; i < data.length; i++){
+  result += Number(data[i]);
+}
+console.log(result);
+
+문제2_세자리곱셈
+
+let fs = require("fs");
+let input = fs.readFileSync('문제3_세자리곱셈.txt').toString().split("\n");
+let a = input[0];
+let b = input[1];
+
+let x_1 = b[2];
+let x_2 = b[1];
+let x_3 = b[0];
+
+console.log(Number(a) * x_1);
+console.log(Number(a) * x_2);
+console.log(Number(a) * x_3);
+console.log(Number(a) * Number(b));
+
+문제3_시험성적
+
+let fs = require("fs");
+let input = fs.readFileSync('문제4_시험성적.txt').toString().split("\n");
+
+let score = parseInt(input[0]);
+if (score>=90) console.log("A");
+else if (score>=80) console.log("B");
+else if (score>=70) console.log("C");
+else if (score>=60) console.log("D");
+else console.log("F");
+
+문제4_최대최소
+
+let fs = require("fs");
+let input = fs.readFileSync('문제10_최대최소.txt').toString().split("\n");
+
+let count = parseInt(input[0]);
+let data = input[1].toString().split(' ');
+
+console.log(`데이터 - ${data}`);
+
+let max = -1000001;
+let min = 1000001;
+for(let i=0; i<data.length; i++){
+    if(parseInt(data[i]) > max) max = parseInt(data[i]);
+    if(parseInt(data[i]) < min) min = parseInt(data[i]);
+}
+console.log(`max : ${max}, min : ${min}`);
+
+
+-- reduce
+let fs = require("fs");
+let input = fs.readFileSync('문제10_최대최소.txt').toString().split("\n");
+
+let count = parseInt(input[0]);
+let data = input[1].split(' ').map(x => Number(x));
+
+console.log(`데이터 - ${data}`);
+
+let max = data.reduce((a,b) => Math.max(a,b));
+let min = data.reduce((a,b) => Math.min(a,b));
+console.log(`max : ${max}, min : ${min}`);
+
+
+문제5_최대값인덱스
+
+let fs = require("fs");
+let input = fs.readFileSync('문제11_최대값인덱스.txt').toString().split("\n");
+
+let data = input.map(x => Number(x));
+let index = 0;
+let max = 0;
+console.log(`데이터 - ${data}`);
+
+// max = data.reduce((a,b)=>Math.max(a,b));
+max = Math.max(...data)
+index = data.indexOf(max);
+
+// for(let i = 0; i < data.length; i++){
+//     if(data[i] > max){
+//         max = data[i];
+//         index = i;
+//     }
+// }
+
+console.log(`max : ${max}, min : ${index + 1}`);
+
+문제6_평균
+
+let fs = require("fs");
+let input = fs.readFileSync('문제12_평균.txt').toString().split("\n");
+
+let rowCount = Number(input[0]);
+
+for(let i = 1; i <= rowCount; i++){
+    let data = input[i].split(' ').map(Number);
+    let n = data[0];
+    let sum = 0;
+    for(let j=1; j<=n; j++){
+        sum += data[j];
+    }
+    let avg = sum / n;
+    let cnt = 0;
+    for(let k=1; k<=n; k++){
+        if(data[k] > avg) cnt += 1;
+    }
+    console.log(`${(cnt/n*100).toFixed(3)}%`)
+
+문제7_평균조작
+
+let fs = require("fs");
+let input = fs.readFileSync('문제13_평균조작.txt').toString().split("\n");
+
+let n = Number(input[0]);
+let scores = input[1].split(' ').map(Number);
+let maxValue = scores.reduce((a, b)=>Math.max(a,b));
+let updated = [];
+
+for(let i = 0; i < n; i++){
+    updated.push(scores[i] / maxValue * 100);
+}
+
+console.log(updated.reduce((a,b)=> a+b)/n);
+
+
+문제8_문자열반복
+
+let fs = require("fs");
+let input = fs.readFileSync('문제14_문자열반복.txt').toString().split("\n");
+
+let n = Number(input[0]);
+let data = [];
+
+for(let i = 1; i <= n ; i++){
+    let[repeat, str] = input[i].split(' ');
+    let result = '';
+    for(let j = 0; j < str.length; j++){
+        result += str.charAt(j).repeat(repeat);
+    }
+    console.log(result);
+}
+
+문제9_상수
+
+let fs = require("fs");
+let input = fs.readFileSync('문제15_상수.txt').toString().split("\n");
+
+data = input[0].toString().split(' ');
+let x = data[0];
+let y = data[1];
+
+let newX = x[2] + x[1] + x[0];
+let newY = y[2] + y[1] + y[0];
+
+console.log(Math.max(Number(newX), Number(newY)));
